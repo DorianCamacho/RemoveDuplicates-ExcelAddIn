@@ -1,0 +1,41 @@
+// declarar una matriz de datos especifica
+int filas = matrizDatos.GetLength(0);
+int columnas = matrizDatos.GetLength(1);
+
+List<int> columnasSeleccionadas = new List<int>();
+
+// Evento para manejar el cambio en la selección de la checkbox
+private void CheckBox_CheckedChanged(object sender, EventArgs e)
+{
+    // Obtener la checkbox seleccionada
+    CheckBox checkbox = (CheckBox)sender;
+    
+    // Obtener el índice de la columna asociada a la checkbox
+    int columna = (int)checkbox.Tag;
+    
+    // Si la checkbox está marcada, agregar la columna a las seleccionadas; de lo contrario, quitarla
+    if (checkbox.Checked)
+    {
+        columnasSeleccionadas.Add(columna);
+    }
+    else
+    {
+        columnasSeleccionadas.Remove(columna);
+    }
+}
+
+
+private void TrabajarConColumnasSeleccionadas()
+{
+    // Crear una nueva matriz para almacenar solo las columnas seleccionadas
+    int[,] matrizSeleccionada = new int[filas, columnasSeleccionadas.Count];
+    
+    // Copiar los datos de las columnas seleccionadas a la nueva matriz
+    for (int fila = 0; fila < filas; fila++)
+    {
+        for (int i = 0; i < columnasSeleccionadas.Count; i++)
+        {
+            int columnaSeleccionada = columnasSeleccionadas[i];
+            matrizSeleccionada[fila, i] = matrizDatos[fila, columnaSeleccionada];
+        }
+    }
